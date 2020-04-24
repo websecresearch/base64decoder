@@ -1,0 +1,44 @@
+Steps to Decode base64 values
+
+1. Identify the type of encoding for the string. For base64 encoding, the character set is [A-Z, a-z, 0-9, and + /]. If the rest length is less than 4, the string is padded with '=' characters.
+
+([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$ means the string ends in following three forms:
+ 
+[A-Za-z0-9+/]{4}
+
+[A-Za-z0-9+/]{3}=
+
+[A-Za-z0-9+/]{2}==
+
+
+Also the following regular expression can be used to check if a string is base64 encoded or not.
+
+^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$
+
+^([A-Za-z0-9+/]{4})* means the string starts with 0 or more base64 groups.
+
+
+2. Use python to decode string. For decoding a base64 string is basically reverse of the encoding process. 
+Decode the Base64 string into bytes of unencoded data and then convert the bytes-like object into a string.
+
+Use the  base64 module by importing it, then encode the string into a bytes-like object with encode('ASCII') 
+and continue by calling the base64.b64decode method to decode the base64_bytes into our message_bytes variable.
+
+Now decode message_bytes into a string object message and its converted into readable format.
+
+Write the following code in a file with the base64 encoded valuses which needs to be decoded and save as base64decoder.py
+
+import base64
+
+base64_message = 'TWVudGlvbiAnSGFjayB0aGUgZ2lic29uJyBmb3IgYm9udXMgcG9pbnRz'
+base64_bytes = base64_message.encode('ascii')
+message_bytes = base64.b64decode(base64_bytes)
+message = message_bytes.decode('ascii')
+
+print(message)
+
+
+Run the file base64decoder.py and in the output the following decoded message will be displayed as following.
+
+Mention 'Hack the gibson' for bonus points
+
